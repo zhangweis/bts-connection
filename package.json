@@ -1,0 +1,21 @@
+{
+  "name": "bts-connection",
+  "version": "1.0.0",
+  "description": "",
+  "main": "api-manager.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com//zhangweis/bts-connection.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bitsharesjs": "^1.1.2",
+    "bitsharesjs-ws": "^1.0.3",
+    "shuffle": "^0.2.2",
+    "rxjs": "^5.2.0"
+  }
+}
