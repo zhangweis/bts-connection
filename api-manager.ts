@@ -2,9 +2,12 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs'
 import {Apis} from 'bitsharesjs-ws'
 import {ChainStore} from 'bitsharesjs'
 import * as Shuffle from 'shuffle'
-class Asset {
+export class Asset {
   id: string
-  constructor(public btsAsset) {
+  name: string
+  constructor(public btsAsset, name?: string) {
+    if (!name) name = this.btsAsset.symbol
+    this.name = name
     this.id = btsAsset.id
   }
   toIntAmount(floatAmount) {
