@@ -4,10 +4,7 @@ import {ChainStore} from 'bitsharesjs'
 import * as Shuffle from 'shuffle'
 export class Asset {
   id: string
-  name: string
-  constructor(public btsAsset, name?: string) {
-    if (!name) name = this.btsAsset.symbol
-    this.name = name
+  constructor(public btsAsset) {
     this.id = btsAsset.id
   }
   toIntAmount(floatAmount) {
