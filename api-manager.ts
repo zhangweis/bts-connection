@@ -82,7 +82,7 @@ class ApiManager {
     this.status.next('connecting')
     let endpoints1 = mainPoints
     let deck = Shuffle.shuffle({deck:endpoints1})
-    let endpoints = deck.drawRandom(endpoints1.length).concat(backupPoints)
+    let endpoints = (deck.drawRandom(endpoints1.length)||[]).concat(backupPoints)
     console.log(endpoints)
     // wss://bts.transwiser.com/ws
     // wss://bit.btsabc.org/ws
