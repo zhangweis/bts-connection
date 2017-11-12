@@ -83,8 +83,14 @@ class ApiManager {
     if (this.status.getValue()=='connected') return;
     this.status.next('connecting')
     let endpoints1 = mainPoints
-    let deck = Shuffle.shuffle({deck:endpoints1})
-    let endpoints = (deck.drawRandom(endpoints1.length)||[]).concat(backupPoints)
+    var endpoints;
+    if (endpoints1.length>1) {
+      let deck = Shuffle.shuffle({deck:endpoints1})
+      endpoints = (deck.drawRandom(endpoints1.length)||[]);
+    } else {
+      endpoints = endpoints1;
+    }
+    endpoints = endpoints.concat(backupPoints)
     console.log(endpoints)
     // wss://bts.transwiser.com/ws
     // wss://bit.btsabc.org/ws
