@@ -2,15 +2,16 @@
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator.throw(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
         function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments)).next());
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const rxjs_1 = require('rxjs');
-const bitsharesjs_ws_1 = require('bitsharesjs-ws');
-const bitsharesjs_1 = require('bitsharesjs');
-const Shuffle = require('shuffle');
+Object.defineProperty(exports, "__esModule", { value: true });
+const rxjs_1 = require("rxjs");
+const bitsharesjs_ws_1 = require("bitsharesjs-ws");
+const bitsharesjs_1 = require("bitsharesjs");
+const Shuffle = require("shuffle");
 class Asset {
     constructor(btsAsset) {
         this.btsAsset = btsAsset;
@@ -26,6 +27,7 @@ class Asset {
         return this.btsAsset.symbol;
     }
 }
+exports.Asset = Asset;
 class TradePair {
     constructor(baseAsset, quoteAsset) {
         this.baseAsset = baseAsset;
@@ -69,6 +71,8 @@ class TradePair {
     }
 }
 exports.TradePair = TradePair;
+var defaultServersString = process.env.bts_servers || ['wss://bts.transwiser.com/ws', 'wss://bit.btsabc.org/ws', 'wss://bitshares.openledger.info/ws', 'wss://secure.freedomledger.com/ws'].join(',');
+var defaultServers = defaultServersString.split(',');
 class ApiManager {
     constructor() {
         this.assets = new Map();
@@ -95,14 +99,14 @@ class ApiManager {
             }));
         });
     }
-    connect(mainPoints = ['wss://bts.transwiser.com/ws', 'wss://bit.btsabc.org/ws', 'wss://bitshares.openledger.info/ws', 'wss://secure.freedomledger.com/ws'], backupPoints = []) {
+    connect(mainPoints = defaultServers, backupPoints = []) {
         return __awaiter(this, void 0, void 0, function* () {
             if (this.status.getValue() == 'connected')
                 return;
             this.status.next('connecting');
             let endpoints1 = mainPoints;
             let deck = Shuffle.shuffle({ deck: endpoints1 });
-            let endpoints = (deck.drawRandom(endpoints1.length)||[]).concat(backupPoints);
+            let endpoints = (deck.drawRandom(endpoints1.length) || []).concat(backupPoints);
             console.log(endpoints);
             // wss://bts.transwiser.com/ws
             // wss://bit.btsabc.org/ws
@@ -117,6 +121,7 @@ class ApiManager {
                     return;
                 }
                 catch (e) {
+                    // continue;
                 }
             }
             this.status.next('failed');
@@ -153,6 +158,6 @@ class ApiManager {
         return db.exec(name, params);
     }
 }
-Object.defineProperty(exports, "__esModule", { value: true });
+exports.ApiManager = ApiManager;
 exports.default = new ApiManager();
 //# sourceMappingURL=api-manager.js.map

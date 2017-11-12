@@ -55,6 +55,8 @@ export class TradePair {
     return new TradePair(this.quote, this.base)
   }
 }
+var defaultServersString = process.env.bts_servers || ['wss://bts.transwiser.com/ws', 'wss://bit.btsabc.org/ws', 'wss://bitshares.openledger.info/ws', 'wss://secure.freedomledger.com/ws'].join(',');
+var defaultServers = defaultServersString.split(',');
 class ApiManager {
   constructor() {
     this.ready = new Promise((resolve, reject) => {
@@ -77,7 +79,7 @@ class ApiManager {
     })
 
   }
-  async connect(mainPoints = ['wss://bts.transwiser.com/ws', 'wss://bit.btsabc.org/ws', 'wss://bitshares.openledger.info/ws', 'wss://secure.freedomledger.com/ws'], backupPoints = []) {
+  async connect(mainPoints = defaultServers, backupPoints = []) {
     if (this.status.getValue()=='connected') return;
     this.status.next('connecting')
     let endpoints1 = mainPoints
@@ -133,4 +135,6 @@ class ApiManager {
   public status : BehaviorSubject<string> = new BehaviorSubject<string>('connecting')
   connected: Observable<any> = this.status.filter(s => s === 'connected')
 }
+export {ApiManager};
+
 export default new ApiManager()
