@@ -43,8 +43,7 @@ class TradePair {
     }
     price(sell_price) {
         var type = this.orderType(sell_price);
-        if (!type)
-            throw { message: 'not this pair', sell_price: sell_price, pair: this };
+        //    if (!type) throw {message:'not this pair', sell_price: sell_price, pair: this}
         if (type == 'buy')
             return this.bidPrice(sell_price);
         return this.askPrice(sell_price);
