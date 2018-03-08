@@ -83,7 +83,7 @@ class ApiManager {
     }
     tryConnect(point) {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(point);
+            console.debug(point);
             return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
                 bitsharesjs_ws_1.Apis.instance().close();
                 var timeout = setTimeout(() => {
@@ -92,7 +92,7 @@ class ApiManager {
                 }, 5000);
                 yield bitsharesjs_ws_1.Apis.instance(point, true).init_promise;
                 var prop = yield this.exec_db('get_dynamic_global_properties', []);
-                console.log(prop);
+                console.debug(prop);
                 clearTimeout(timeout);
                 resolve(prop);
             }));
@@ -113,7 +113,7 @@ class ApiManager {
                 endpoints = endpoints1;
             }
             endpoints = endpoints.concat(backupPoints);
-            console.log(endpoints);
+            console.debug(endpoints);
             // wss://bts.transwiser.com/ws
             // wss://bit.btsabc.org/ws
             // wss://bitshares.dacplay.org/ws
@@ -154,7 +154,7 @@ class ApiManager {
     exec_db(name, params) {
         var db = bitsharesjs_ws_1.Apis.instance().db_api();
         return db.exec(name, params).catch(e => {
-            console.log('reconnect', e);
+            console.debug('reconnect', e);
             this.connect();
             throw e;
         });

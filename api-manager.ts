@@ -64,7 +64,7 @@ class ApiManager {
     })
   }
   async tryConnect(point) {
-    console.log(point)
+    console.debug(point)
     return new Promise(async (resolve, reject)=>{
       Apis.instance().close()
       var timeout = setTimeout(()=>{
@@ -73,7 +73,7 @@ class ApiManager {
       }, 5000)
       await Apis.instance(point, true).init_promise
       var prop = await this.exec_db('get_dynamic_global_properties',[])
-      console.log(prop)
+      console.debug(prop)
       clearTimeout(timeout)
       resolve(prop)
     })
@@ -91,7 +91,7 @@ class ApiManager {
       endpoints = endpoints1;
     }
     endpoints = endpoints.concat(backupPoints)
-    console.log(endpoints)
+    console.debug(endpoints)
     // wss://bts.transwiser.com/ws
     // wss://bit.btsabc.org/ws
     // wss://bitshares.dacplay.org/ws
@@ -128,7 +128,7 @@ class ApiManager {
   exec_db(name, params) {
     var db = Apis.instance().db_api()
     return db.exec(name, params).catch(e=>{
-      console.log('reconnect', e)
+      console.debug('reconnect', e)
       this.connect()
       throw e
     })
