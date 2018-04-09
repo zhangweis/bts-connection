@@ -124,6 +124,17 @@ class ApiManager {
     this.assets.set(name, new Asset(assets[0]))
     return this.assets.get(name)
   }
+
+  async getAssetById(id):Promise<Asset> {
+    await Apis.instance().init_promise
+    for (var [key, value] of this.assets) {
+      if (value.id==id) return value;
+    }
+    var assets = await Apis.instance().db_api().exec('get_objects',[[id]])
+    this.assets.set(name, new Asset(assets[0]))
+    return this.assets.get(name)
+  }
+
   assets: Map<string, any> = new Map<string, any>()
   exec_db(name, params) {
     var db = Apis.instance().db_api()

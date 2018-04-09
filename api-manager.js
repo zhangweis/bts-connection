@@ -235,6 +235,28 @@ var ApiManager = /** @class */ (function () {
             });
         });
     };
+    ApiManager.prototype.getAssetById = function (id) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _i, _a, _b, key, value, assets;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0: return [4 /*yield*/, bitsharesjs_ws_1.Apis.instance().init_promise];
+                    case 1:
+                        _c.sent();
+                        for (_i = 0, _a = this.assets; _i < _a.length; _i++) {
+                            _b = _a[_i], key = _b[0], value = _b[1];
+                            if (value.id == id)
+                                return [2 /*return*/, value];
+                        }
+                        return [4 /*yield*/, bitsharesjs_ws_1.Apis.instance().db_api().exec('get_objects', [[id]])];
+                    case 2:
+                        assets = _c.sent();
+                        this.assets.set(name, new Asset(assets[0]));
+                        return [2 /*return*/, this.assets.get(name)];
+                }
+            });
+        });
+    };
     ApiManager.prototype.exec_db = function (name, params) {
         var _this = this;
         var db = bitsharesjs_ws_1.Apis.instance().db_api();
