@@ -134,7 +134,7 @@ var ApiManager = /** @class */ (function () {
                                         bitsharesjs_ws_1.Apis.instance().close();
                                         reject();
                                     }, 5000);
-                                    return [4 /*yield*/, bitsharesjs_ws_1.Apis.instance(point, true).init_promise];
+                                    return [4 /*yield*/, bitsharesjs_ws_1.Apis.instance(point, false).init_promise];
                                 case 1:
                                     _a.sent();
                                     return [4 /*yield*/, this.exec_db('get_dynamic_global_properties', [])];
