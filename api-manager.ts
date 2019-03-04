@@ -71,7 +71,7 @@ class ApiManager {
         Apis.instance().close()
         reject()
       }, 5000)
-      await Apis.instance(point, true).init_promise
+      await Apis.instance(point, false).init_promise
       var prop = await this.exec_db('get_dynamic_global_properties',[])
       console.debug(prop)
       clearTimeout(timeout)
