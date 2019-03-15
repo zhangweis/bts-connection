@@ -71,7 +71,7 @@ class ApiManager {
         Apis.instance().close()
         reject()
       }, 5000)
-      await Apis.instance(point, false).init_promise
+      await Apis.instance(point, true).init_promise
       var prop = await this.exec_db('get_dynamic_global_properties',[])
       console.debug(prop)
       clearTimeout(timeout)
@@ -100,11 +100,10 @@ class ApiManager {
       try {
         await this.tryConnect(endpoints[i]);
         this.status.next('connected')
-        await ChainStore.init()
+        await ChainStore.init(false)
         this.resolve()
         return;
         } catch(e) {
-        console.trace(e);
         // continue;
       }
     }

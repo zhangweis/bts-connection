@@ -34,7 +34,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var rxjs_1 = require("rxjs");
 var bitsharesjs_ws_1 = require("bitsharesjs-ws");
 var bitsharesjs_1 = require("bitsharesjs");
@@ -134,7 +134,7 @@ var ApiManager = /** @class */ (function () {
                                         bitsharesjs_ws_1.Apis.instance().close();
                                         reject();
                                     }, 5000);
-                                    return [4 /*yield*/, bitsharesjs_ws_1.Apis.instance(point, false).init_promise];
+                                    return [4 /*yield*/, bitsharesjs_ws_1.Apis.instance(point, true).init_promise];
                                 case 1:
                                     _a.sent();
                                     return [4 /*yield*/, this.exec_db('get_dynamic_global_properties', [])];
@@ -182,14 +182,13 @@ var ApiManager = /** @class */ (function () {
                     case 3:
                         _a.sent();
                         this.status.next('connected');
-                        return [4 /*yield*/, bitsharesjs_1.ChainStore.init()];
+                        return [4 /*yield*/, bitsharesjs_1.ChainStore.init(false)];
                     case 4:
                         _a.sent();
                         this.resolve();
                         return [2 /*return*/];
                     case 5:
                         e_1 = _a.sent();
-                        console.trace(e_1);
                         return [3 /*break*/, 6];
                     case 6:
                         i++;
@@ -261,7 +260,7 @@ var ApiManager = /** @class */ (function () {
     ApiManager.prototype.exec_db = function (name, params) {
         var _this = this;
         var db = bitsharesjs_ws_1.Apis.instance().db_api();
-        return db.exec(name, params)["catch"](function (e) {
+        return db.exec(name, params).catch(function (e) {
             console.debug('reconnect', e);
             _this.connect();
             throw e;
@@ -274,4 +273,5 @@ var ApiManager = /** @class */ (function () {
     return ApiManager;
 }());
 exports.ApiManager = ApiManager;
-exports["default"] = new ApiManager();
+exports.default = new ApiManager();
+//# sourceMappingURL=api-manager.js.map
