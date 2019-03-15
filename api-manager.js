@@ -189,6 +189,7 @@ var ApiManager = /** @class */ (function () {
                         return [2 /*return*/];
                     case 5:
                         e_1 = _a.sent();
+                        console.trace(e_1);
                         return [3 /*break*/, 6];
                     case 6:
                         i++;

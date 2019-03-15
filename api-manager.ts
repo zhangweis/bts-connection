@@ -103,7 +103,8 @@ class ApiManager {
         await ChainStore.init()
         this.resolve()
         return;
-      } catch(e) {
+        } catch(e) {
+        console.trace(e);
         // continue;
       }
     }
