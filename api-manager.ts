@@ -79,7 +79,7 @@ class ApiManager {
     })
 
   }
-  async connect(mainPoints = defaultServers, {backupPoints = [], apis = Apis}) {
+  async connect(mainPoints = defaultServers, {backupPoints = [], apis = Apis}={}) {
     if (this.status.getValue()=='connected') return;
     this.status.next('connecting')
     let endpoints1 = mainPoints

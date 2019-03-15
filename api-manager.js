@@ -152,11 +152,11 @@ var ApiManager = /** @class */ (function () {
     };
     ApiManager.prototype.connect = function (mainPoints, _a) {
         if (mainPoints === void 0) { mainPoints = defaultServers; }
-        var _b = _a.backupPoints, backupPoints = _b === void 0 ? [] : _b, _c = _a.apis, apis = _c === void 0 ? bitsharesjs_ws_1.Apis : _c;
+        var _b = _a === void 0 ? {} : _a, _c = _b.backupPoints, backupPoints = _c === void 0 ? [] : _c, _d = _b.apis, apis = _d === void 0 ? bitsharesjs_ws_1.Apis : _d;
         return __awaiter(this, void 0, void 0, function () {
             var endpoints1, endpoints, deck, i, e_1;
-            return __generator(this, function (_d) {
-                switch (_d.label) {
+            return __generator(this, function (_e) {
+                switch (_e.label) {
                     case 0:
                         if (this.status.getValue() == 'connected')
                             return [2 /*return*/];
@@ -172,23 +172,23 @@ var ApiManager = /** @class */ (function () {
                         endpoints = endpoints.concat(backupPoints);
                         console.debug(endpoints);
                         i = 0;
-                        _d.label = 1;
+                        _e.label = 1;
                     case 1:
                         if (!(i <= endpoints.length)) return [3 /*break*/, 7];
-                        _d.label = 2;
+                        _e.label = 2;
                     case 2:
-                        _d.trys.push([2, 5, , 6]);
+                        _e.trys.push([2, 5, , 6]);
                         return [4 /*yield*/, this.tryConnect(endpoints[i], apis)];
                     case 3:
-                        _d.sent();
+                        _e.sent();
                         this.status.next('connected');
                         return [4 /*yield*/, bitsharesjs_1.ChainStore.init(false)];
                     case 4:
-                        _d.sent();
+                        _e.sent();
                         this.resolve();
                         return [2 /*return*/];
                     case 5:
-                        e_1 = _d.sent();
+                        e_1 = _e.sent();
                         return [3 /*break*/, 6];
                     case 6:
                         i++;
