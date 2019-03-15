@@ -119,7 +119,7 @@ var ApiManager = /** @class */ (function () {
             _this.resolve = resolve;
         });
     }
-    ApiManager.prototype.tryConnect = function (point) {
+    ApiManager.prototype.tryConnect = function (point, apis) {
         return __awaiter(this, void 0, void 0, function () {
             var _this = this;
             return __generator(this, function (_a) {
@@ -129,12 +129,12 @@ var ApiManager = /** @class */ (function () {
                         return __generator(this, function (_a) {
                             switch (_a.label) {
                                 case 0:
-                                    bitsharesjs_ws_1.Apis.instance().close();
+                                    apis.instance().close();
                                     timeout = setTimeout(function () {
-                                        bitsharesjs_ws_1.Apis.instance().close();
+                                        apis.instance().close();
                                         reject();
                                     }, 5000);
-                                    return [4 /*yield*/, bitsharesjs_ws_1.Apis.instance(point, true).init_promise];
+                                    return [4 /*yield*/, apis.instance(point, true).init_promise];
                                 case 1:
                                     _a.sent();
                                     return [4 /*yield*/, this.exec_db('get_dynamic_global_properties', [])];
@@ -150,13 +150,13 @@ var ApiManager = /** @class */ (function () {
             });
         });
     };
-    ApiManager.prototype.connect = function (mainPoints, backupPoints) {
+    ApiManager.prototype.connect = function (mainPoints, _a) {
         if (mainPoints === void 0) { mainPoints = defaultServers; }
-        if (backupPoints === void 0) { backupPoints = []; }
+        var _b = _a.backupPoints, backupPoints = _b === void 0 ? [] : _b, _c = _a.apis, apis = _c === void 0 ? bitsharesjs_ws_1.Apis : _c;
         return __awaiter(this, void 0, void 0, function () {
             var endpoints1, endpoints, deck, i, e_1;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            return __generator(this, function (_d) {
+                switch (_d.label) {
                     case 0:
                         if (this.status.getValue() == 'connected')
                             return [2 /*return*/];
@@ -172,23 +172,23 @@ var ApiManager = /** @class */ (function () {
                         endpoints = endpoints.concat(backupPoints);
                         console.debug(endpoints);
                         i = 0;
-                        _a.label = 1;
+                        _d.label = 1;
                     case 1:
                         if (!(i <= endpoints.length)) return [3 /*break*/, 7];
-                        _a.label = 2;
+                        _d.label = 2;
                     case 2:
-                        _a.trys.push([2, 5, , 6]);
-                        return [4 /*yield*/, this.tryConnect(endpoints[i])];
+                        _d.trys.push([2, 5, , 6]);
+                        return [4 /*yield*/, this.tryConnect(endpoints[i], apis)];
                     case 3:
-                        _a.sent();
+                        _d.sent();
                         this.status.next('connected');
                         return [4 /*yield*/, bitsharesjs_1.ChainStore.init(false)];
                     case 4:
-                        _a.sent();
+                        _d.sent();
                         this.resolve();
                         return [2 /*return*/];
                     case 5:
-                        e_1 = _a.sent();
+                        e_1 = _d.sent();
                         return [3 /*break*/, 6];
                     case 6:
                         i++;

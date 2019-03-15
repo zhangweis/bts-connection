@@ -63,15 +63,15 @@ class ApiManager {
       this.resolve = resolve
     })
   }
-  async tryConnect(point) {
+  async tryConnect(point, apis) {
     console.debug(point)
     return new Promise(async (resolve, reject)=>{
-      Apis.instance().close()
+      apis.instance().close()
       var timeout = setTimeout(()=>{
-        Apis.instance().close()
+        apis.instance().close()
         reject()
       }, 5000)
-      await Apis.instance(point, true).init_promise
+      await apis.instance(point, true).init_promise
       var prop = await this.exec_db('get_dynamic_global_properties',[])
       console.debug(prop)
       clearTimeout(timeout)
@@ -79,7 +79,7 @@ class ApiManager {
     })
 
   }
-  async connect(mainPoints = defaultServers, backupPoints = []) {
+  async connect(mainPoints = defaultServers, {backupPoints = [], apis = Apis}) {
     if (this.status.getValue()=='connected') return;
     this.status.next('connecting')
     let endpoints1 = mainPoints
@@ -98,7 +98,7 @@ class ApiManager {
     // wss://openledger.hk/ws
     for (var i = 0; i <= endpoints.length; i++) {
       try {
-        await this.tryConnect(endpoints[i]);
+        await this.tryConnect(endpoints[i], apis);
         this.status.next('connected')
         await ChainStore.init(false)
         this.resolve()
