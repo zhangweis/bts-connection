@@ -152,6 +152,6 @@ class ApiManager {
   public status : BehaviorSubject<string> = new BehaviorSubject<string>('connecting')
   connected: Observable<any> = this.status.filter(s => s === 'connected')
 }
-export {ApiManager};
+export {ApiManager, Apis, ChainStore};
 
 export default new ApiManager()

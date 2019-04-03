@@ -37,7 +37,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var rxjs_1 = require("rxjs");
 var bitsharesjs_ws_1 = require("bitsharesjs-ws");
+exports.Apis = bitsharesjs_ws_1.Apis;
 var bitsharesjs_1 = require("bitsharesjs");
+exports.ChainStore = bitsharesjs_1.ChainStore;
 var Shuffle = require("shuffle");
 var Asset = /** @class */ (function () {
     function Asset(btsAsset) {
